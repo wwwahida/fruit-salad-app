@@ -54,5 +54,4 @@ function removeFruit(e) {
     delete fruitCalories[fruitName]
     e.target.remove()
 }
-//https://pixabay.com/api/?q=cherry+fruit&key=58058285 - b49fe8d3c1b07c247b5fe9ad2
 },{}]},{},[1]);
