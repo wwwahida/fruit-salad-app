@@ -1,6 +1,7 @@
 const fruitForm = document.querySelector("#inputSection form");
 const fruitList = document.querySelector("#fruitSection ul");
 const fruitNutrition = document.querySelector("#nutritionSection p");
+const createForm = document.querySelector("#create-fruit");
 fruitForm.addEventListener("submit", extractFruit);
 
 let cal = 0;
