@@ -2,8 +2,10 @@ const fruitForm = document.querySelector("#inputSection form");
 const fruitList = document.querySelector("#fruitSection ul");
 const fruitNutrition = document.querySelector("#nutritionSection p");
 const createForm = document.querySelector("#create-fruit");
+const deleteForm = document.querySelector("#delete-fruit");
 fruitForm.addEventListener("submit", extractFruit);
 createForm.addEventListener("submit", createNewFruit);
+deleteForm.addEventListener("submit", deleteFruit);
 
 let cal = 0;
 const fruitCalories = {}
@@ -88,4 +90,41 @@ async function createNewFruit(e) {
             messageStatus.textContent = ''
         }, 3000)
     }
+}
+
+async function deleteFruit(e) {
+    e.preventDefault()
+
+    const fruit = e.target.fruitDelete.value.toLowerCase()
+    
+    const options = {
+        method: "DELETE"
+    }
+
+    const message = document.querySelector('#deleteMessage')
+
+    const response = await fetch(`https://fruit-api-1-v36t.onrender.com/fruits/${fruit}`, options)
+
+    if (response.ok) {
+        e.target.fruitDelete.value = ''
+        message.textContent = 'fruit successfully deleted.'
+
+        const image = fruitList.querySelector(`img[alt="${fruit}"]`)
+        if (image) {
+            cal -= fruitCalories[fruit]
+            fruitNutrition.textContent = "total calories: " + cal
+            delete fruitCalories[fruit]
+            image.remove()
+        }
+
+        setTimeout(() => {
+            message.textContent = ''
+        }, 3000)
+    } else {
+        e.target.fruitDelete.value = ''
+        message.textContent = 'this fruit does not exist. please enter another one.'
+        setTimeout(() => {
+            message.textContent = ''
+        }, 3000)
+    }   
 }
