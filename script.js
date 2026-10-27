@@ -3,6 +3,7 @@ const fruitList = document.querySelector("#fruitSection ul");
 const fruitNutrition = document.querySelector("#nutritionSection p");
 const createForm = document.querySelector("#create-fruit");
 fruitForm.addEventListener("submit", extractFruit);
+createForm.addEventListener("submit", createNewFruit);
 
 let cal = 0;
 const fruitCalories = {}
@@ -31,7 +32,7 @@ function addFruit(fruit, fruitImage) {
 
 async function fetchFruitData(fruit) {
     try {
-        const respData = await fetch(`https://fruit-api-5v0j.onrender.com/fruits/${fruit}`);
+        const respData = await fetch(`https://fruit-api-1-v36t.onrender.com/fruits/${fruit}`);
         const respImage = await fetch(`https://pixabay.com/api/?q=${fruit}+fruit&key=${apiKey}`);
 
         if (respData.ok && respImage.ok) {
@@ -53,4 +54,38 @@ function removeFruit(e) {
 
     delete fruitCalories[fruitName]
     e.target.remove()
+}
+
+async function createNewFruit(e) {
+    e.preventDefault()
+
+    const data = {
+        name: e.target.fruitCreate.value
+    }
+
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    }
+
+    const response = await fetch(`https://fruit-api-1-v36t.onrender.com/fruits`, options)
+
+    let messageStatus = document.querySelector('#message')
+
+    if (response.status === 201) {
+        e.target.fruitCreate.value = ''
+        messageStatus.textContent = 'fruit successfully created.'
+        setTimeout(() => {
+            messageStatus.textContent = ''
+        }, 3000)
+    } else {
+        e.target.fruitCreate.value = ''
+        messageStatus.textContent = 'this fruit already exists. please enter another one.'
+        setTimeout(() => {
+            messageStatus.textContent = ''
+        }, 3000)
+    }
 }
