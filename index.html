@@ -38,11 +38,18 @@
 
     <section>
         <form id="update-fruit">
-            <input name="fruitName" placeholder="Existing fruit" required>
-            <input name="newCalories" type="number"
-                placeholder="New calories" min="0" step="any">
+            <input type="text" name="currentName"
+                placeholder="fruit to update" required>
+            <input type="text" name="updatedName"
+                placeholder="new name (optional)">
+            <input type="text" name="updatedFamily"
+                placeholder="new family (optional)">
+            <input type="number" name="updatedCalories"
+                placeholder="new calories (optional)"
+                min="0" step="any">
             <button type="submit">update</button>
         </form>
+        <p id="updateMessage"></p>
     </section>
 
     <section>
