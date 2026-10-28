@@ -3,9 +3,11 @@ const fruitList = document.querySelector("#fruitSection ul");
 const fruitNutrition = document.querySelector("#nutritionSection p");
 const createForm = document.querySelector("#create-fruit");
 const deleteForm = document.querySelector("#delete-fruit");
+const updateForm = document.querySelector("#update-fruit");
 fruitForm.addEventListener("submit", extractFruit);
 createForm.addEventListener("submit", createNewFruit);
 deleteForm.addEventListener("submit", deleteFruit);
+updateForm.addEventListener("submit", updateFruit);
 
 let cal = 0;
 const fruitCalories = {}
