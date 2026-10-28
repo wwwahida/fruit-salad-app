@@ -37,6 +37,22 @@
     </section>
 
     <section>
+        <form id="update-fruit">
+            <input type="text" name="currentName"
+                placeholder="fruit to update" required>
+            <input type="text" name="updatedName"
+                placeholder="new name (optional)">
+            <input type="text" name="updatedFamily"
+                placeholder="new family (optional)">
+            <input type="number" name="updatedCalories"
+                placeholder="new calories (optional)"
+                min="0" step="any">
+            <button type="submit">update</button>
+        </form>
+        <p id="updateMessage"></p>
+    </section>
+
+    <section>
         <form id="delete-fruit">
             <label for="fruitDelete">delete a fruit</label>
             <input type="text" id="fruitDelete" name="fruit" placeholder="e.g. starfruit" required>

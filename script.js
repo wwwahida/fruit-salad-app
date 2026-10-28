@@ -128,3 +128,56 @@ async function deleteFruit(e) {
         }, 3000)
     }   
 }
+
+async function updateFruit(e) {
+    e.preventDefault()
+
+    const fruit = e.target.currentName.value.toLowerCase().trim()
+    const name = e.target.updatedName.value.toLowerCase().trim()
+
+    const data = {}
+
+    if (name) {
+        data.name = name
+    }
+
+    const message = document.querySelector('#updateMessage')
+
+    if (Object.keys(data).length === 0) {
+        message.textContent = 'please enter a new name to update the fruit.'
+        setTimeout(() => {
+            message.textContent = ''
+        }, 3000)
+        return
+    }
+
+    const options = {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    }
+
+    try {
+        const response = await fetch(`https://fruit-api-1-v36t.onrender.com/fruits/${fruit}`, options)
+        if (response.ok) {
+            message.textContent = 'fruit successfully updated.'
+            e.target.reset()
+            setTimeout(() => {
+                message.textContent = ''
+            }, 3000)
+        } else {
+            message.textContent = 'this fruit does not exist. please enter another one.'
+            setTimeout(() => {
+                message.textContent = ''
+            }, 3000)
+        }
+    } catch (error) {
+        console.error('Error updating fruit:', error)
+        message.textContent = 'an error occurred while updating the fruit. please try again later.'
+        setTimeout(() => {
+            message.textContent = ''
+        }, 3000)
+    }
+}
